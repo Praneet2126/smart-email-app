@@ -3,6 +3,7 @@ import { FaGithub, FaStar, FaTrash } from "react-icons/fa";
 import emailData from "../../data/emails.json";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 function EmailList({ selectedCategory = "Primary" }) {
   const [filteredEmails, setFilteredEmails] = useState([]);
@@ -20,6 +21,12 @@ function EmailList({ selectedCategory = "Primary" }) {
     );
   };
 
+  const navigate = useNavigate();
+
+  const handleEmailClick = (emailId) => {
+    navigate(`/mail/${emailId}`);
+  };
+
   return (
     <motion.div
       className="email-list-container"
@@ -32,6 +39,7 @@ function EmailList({ selectedCategory = "Primary" }) {
           <motion.div
             key={email.id}
             className="email-item"
+            onClick={() => handleEmailClick(email.id)}
             initial={{
               opacity: 0,
               y: 20,

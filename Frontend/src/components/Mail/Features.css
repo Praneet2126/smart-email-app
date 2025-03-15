@@ -1,0 +1,43 @@
+.features {
+    padding: 1rem 2rem;
+    margin-left: 3rem;
+}
+
+.feature-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.feature-btn {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: rgb(56, 54, 54);
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-btn:hover {
+    background-color: #f0f0f0;
+    color: #FF3B3B;
+    transform: scale(1.2);
+}
+
+.back:hover {
+    color: #333;
+}
+
+.delete:hover {
+    color: #FF3B3B;
+}
+
+.info:hover {
+    color: #0066ff;
+}
