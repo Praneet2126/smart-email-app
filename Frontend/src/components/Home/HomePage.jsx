@@ -3,7 +3,7 @@ import { useState } from 'react';
 import HomeNavbar from "./HomeNavbar";
 import SearchBar from "./SearchBar";
 import Category from "./Category";
-import EmailList from "./EmailList";
+import EmailList from "./emaillist";
 
 function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState("Primary");
