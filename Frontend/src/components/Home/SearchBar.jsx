@@ -1,7 +1,12 @@
 import "./SearchBar.css";
 import { FaSearch } from "react-icons/fa";
+import React from 'react';
 
-function SearchBar() {
+function SearchBar({ onSearch }) {
+  const handleInputChange = (e) => {
+    onSearch(e.target.value);
+  };
+
   return (
     <>
       <div className="container">
@@ -16,6 +21,7 @@ function SearchBar() {
               type="text" 
               placeholder="Search Neuromail" 
               className="search-input"
+              onChange={handleInputChange} 
             />
           </div>
         </div>
