@@ -3,8 +3,8 @@ import "./Reply.css";
 function Reply({ onClose }) {
   return (
     <div className="reply-container">
-      <button className="close-btn" onClick={onClose}>
-        <i class="fa-solid fa-xmark"></i>
+      <button className="close-btn flex justify-center items-center" onClick={onClose}>
+        <span><i class="fa-solid fa-xmark"></i></span>
       </button>
       <h2>AI Generated Reply</h2>
       <div className="reply-content">
