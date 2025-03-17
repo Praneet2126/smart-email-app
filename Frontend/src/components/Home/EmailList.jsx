@@ -1,30 +1,18 @@
 import "./EmailList.css";
 import { FaGithub, FaStar, FaTrash } from "react-icons/fa";
-import emailData from "../../data/emails.json";
-import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-function EmailList({ selectedCategory = "Primary" }) {
-  const [filteredEmails, setFilteredEmails] = useState([]);
-
-  useEffect(() => {
-    const filtered = emailData.filter(
-      (email) => email.category === selectedCategory
-    );
-    setFilteredEmails(filtered);
-  }, [selectedCategory]);
-
-  const handleDelete = (emailId) => {
-    setFilteredEmails((prevEmails) =>
-      prevEmails.filter((email) => email.id !== emailId)
-    );
-  };
-
+function EmailList({emails, onDelete }) {
   const navigate = useNavigate();
 
-  const handleEmailClick = (emailId) => {
-    navigate(`/mail/${emailId}`);
+  const handleEmailClick = (id) => {
+    navigate(`/mail/${id}`);
+  };
+
+  const handleDelete = (e, id) => {
+    e.stopPropagation();
+    onDelete(id);
   };
 
   return (
@@ -35,7 +23,7 @@ function EmailList({ selectedCategory = "Primary" }) {
       exit={{ opacity: 0 }}
     >
       <AnimatePresence mode="popLayout">
-        {filteredEmails.map((email, index) => (
+        {emails && emails.map((email, index) => (
           <motion.div
             key={email.id}
             className="email-item"
@@ -82,7 +70,7 @@ function EmailList({ selectedCategory = "Primary" }) {
             </div>
             <motion.button
               className="delete-btn"
-              onClick={() => handleDelete(email.id)}
+              onClick={(e) => handleDelete(e, email.id)}
               whileHover={{ scale: 1.2, color: "#ff3b3b" }}
               whileTap={{ scale: 0.9 }}
             >
