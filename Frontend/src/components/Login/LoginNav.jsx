@@ -1,19 +1,8 @@
+import "./LoginNav.css"
 import React from "react";
-import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
-function Navbar() {
-  const navigate = useNavigate();
-
-  const handleSingupClick = () => {
-    navigate(`/signup`);
-  };
-
-  const handleLoginClick = () => {
-    navigate(`/login`);
-  };
-
+function LoginNav() {
   return (
     <>
       <div className="container">
@@ -41,28 +30,9 @@ function Navbar() {
             <Link className="contact">Contact</Link>
           </div>
         </div>
-
-        <div className="btns">
-          <button
-            className="nav-btn btn-1"
-            onClick={() => {
-              handleSingupClick();
-            }}
-          >
-            Signup
-          </button>
-          <button
-            className="nav-btn btn-2"
-            onClick={() => {
-              handleLoginClick();
-            }}
-          >
-            Login
-          </button>
-        </div>
       </div>
     </>
   );
 }
 
-export default Navbar;
+export default LoginNav;
