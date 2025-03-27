@@ -41,9 +41,16 @@ function HeroContent() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
           >
-            Pharetra blandit augue volutpat libero augue semper. Non diam neque
-            praesent sem senectus mauris lectus a urna. Tortor pellentesque
-            ipsum tincidunt enim.
+            Experience a smarter way to manage your emails with our AI-powered assistant. Get instant summaries, AI-generated reply suggestions, and automatic email categorization to stay organized effortlessly. Boost productivity with intelligent email management! 
+          </motion.p>
+
+          <motion.p
+            className="text-gray-600 mb-10 max-w-lg mt-10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+          >
+            Made with love ❤️
           </motion.p>
 
           <motion.button
