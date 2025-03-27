@@ -29,10 +29,14 @@ function Navbar() {
         </div>
         <div className="nav-section">
           <div>
-            <Link className="about">About</Link>
+            <Link to="/about" className="about">
+              About
+            </Link>
           </div>
           <div>
-            <Link className="works">How it works</Link>
+            <Link to="/working" className="works">
+              How it works
+            </Link>
           </div>
           <div>
             <Link to="/home" className="dashboard">
@@ -40,7 +44,9 @@ function Navbar() {
             </Link>
           </div>
           <div>
-            <Link className="contact">Contact</Link>
+            <Link to="/contact" className="contact">
+              Contact
+            </Link>
           </div>
         </div>
 
