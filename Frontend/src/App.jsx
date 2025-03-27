@@ -5,6 +5,7 @@ import HomePage from "./components/Home/HomePage";
 import MailPage from "./components/Mail/MailPage";
 import SignUp from "./components/Signup/SignUp";
 import LoginPage from "./components/Login/LoginPage";
+import Contact from "./components/contact/Contact";
 
 function App() {
   return (
@@ -12,10 +13,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/home" element={<HomePage/>} />
-          <Route path="/mail/:id" element={<MailPage/>} />
-          <Route path="/signup" element={<SignUp/>}/>
-          <Route path="/login" element={<LoginPage/>}/>
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/mail/:id" element={<MailPage />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </BrowserRouter>
     </>
