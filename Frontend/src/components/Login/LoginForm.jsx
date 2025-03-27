@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import AnimatedButton from './AnimatedButton';
-import './SignupForm.css';
+import AnimatedButton from '../Signup/AnimatedButton';
+import './LoginForm.css';
 
-function SignupForm() {
+function LoginForm() {
   const [formData, setFormData] = useState({
-    username: '',
     email: '',
     password: ''
   });
@@ -21,23 +20,13 @@ function SignupForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    navigate('/login');
+    navigate('/home');
   };
 
   return (
-    <div className="signup-container">
-      <h2>Create Account</h2>
-      <form onSubmit={handleSubmit} className="signup-form">
-        <div className="form-group">
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
+    <div className="login-container">
+      <h2>Welcome Back</h2>
+      <form onSubmit={handleSubmit} className="login-form">
         <div className="form-group">
           <input
             type="email"
@@ -58,13 +47,13 @@ function SignupForm() {
             required
           />
         </div>
-        <AnimatedButton type="submit" text="Sign Up" />
-        <div className="login-link">
-          Already have an account? <Link to="/login">Login</Link>
+        <AnimatedButton type="submit" text="Login" />
+        <div className="signup-link">
+          Don't have an account? <Link to="/signup">Sign Up</Link>
         </div>
       </form>
     </div>
   );
 }
 
-export default SignupForm;
+export default LoginForm;

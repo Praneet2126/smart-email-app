@@ -1,4 +1,4 @@
-.signup-container {
+.login-container {
   padding: 4.3rem;
   width: 100%;
   max-width: 500px;
@@ -17,7 +17,7 @@
   margin-right: 1rem;
 }
 
-.signup-container::before {
+.login-container::before {
   content: '';
   position: absolute;
   top: 0;
@@ -31,7 +31,7 @@
   );
 }
 
-.signup-container::after {
+.login-container::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -45,7 +45,7 @@
   );
 }
 
-.signup-container > * {
+.login-container > * {
   position: relative;
   z-index: 1;
 }
@@ -61,7 +61,7 @@
   }
 }
 
-.signup-container h2 {
+.login-container h2 {
   color: #FF3B3B;
   margin-bottom: 3rem;
   font-size: 2.8rem;
@@ -81,11 +81,11 @@
   }
 }
 
-.signup-form {
+.login-form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 1.5rem;
 }
 
 .form-group {
@@ -93,12 +93,11 @@
   position: relative;
   animation: slideUp 0.6s ease-out;
   animation-fill-mode: both;
-  margin-bottom: 1rem; 
+  margin-bottom: 1rem;
 }
 
 .form-group:nth-child(1) { animation-delay: 0.2s; }
 .form-group:nth-child(2) { animation-delay: 0.4s; }
-.form-group:nth-child(3) { animation-delay: 0.6s; }
 
 @keyframes slideUp {
   from {
@@ -128,14 +127,14 @@
   transform: translateY(-2px);
 }
 
-.login-link {
+.signup-link {
   text-align: center;
   margin-top: 1.5rem;
   font-size: 0.95rem;
   color: #666;
 }
 
-.login-link a {
+.signup-link a {
   color: #FF3B3B;
   text-decoration: none;
   font-weight: 500;
@@ -143,7 +142,7 @@
   transition: all 0.3s ease;
 }
 
-.login-link a:hover {
+.signup-link a:hover {
   color: #ff6b6b;
   text-decoration: underline;
 }
