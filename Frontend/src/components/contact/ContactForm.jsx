@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AnimatedButton from "../Signup/AnimatedButton";
 import "./ContactForm.css";
 
@@ -24,7 +24,7 @@ function ContactForm() {
   };
 
   return (
-    <div className="contact-container left-120 mt-8">
+    <div className="contact-container left-120 mt-8 mb-5">
       <h2>Any Queries?</h2>
       <form onSubmit={handleSubmit} className="contact-form">
         <div className="form-group">
