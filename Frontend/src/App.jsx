@@ -6,6 +6,7 @@ import MailPage from "./components/Mail/MailPage";
 import SignUp from "./components/Signup/SignUp";
 import LoginPage from "./components/Login/LoginPage";
 import Contact from "./components/contact/Contact";
+import NotFound from "./components/NotFound/NotFound";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>
