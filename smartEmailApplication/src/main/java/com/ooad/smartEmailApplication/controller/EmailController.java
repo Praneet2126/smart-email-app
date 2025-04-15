@@ -6,6 +6,7 @@ import com.ooad.smartEmailApplication.service.AIRecommendationService;
 import com.ooad.smartEmailApplication.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -18,17 +19,15 @@ import java.util.Map;
 public class EmailController {
     @Autowired
     private EmailService emailService;
-    
+
     @Autowired
     private AIRecommendationService aiRecommendationService;
-    
+
     @PostMapping("/send")
-    public ResponseEntity<?> sendEmail(
-            @RequestParam String from,
-            @RequestParam String to,
-            @RequestBody Email email) {
+    public ResponseEntity<?> sendEmail(@RequestParam String to, @RequestBody Email email) {
         try {
-            Email sentEmail = emailService.sendEmail(from, to, email);
+            String authenticatedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+            Email sentEmail = emailService.sendEmail(authenticatedUserEmail, to, email);
             return ResponseEntity.ok(sentEmail);
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
@@ -36,53 +35,50 @@ public class EmailController {
             return ResponseEntity.badRequest().body(error);
         }
     }
-    
+
     @PutMapping("/{emailId}/star")
-    public ResponseEntity<?> starEmail(
-            @PathVariable String emailId,
-            @RequestParam String userEmail) {
+    public ResponseEntity<?> starEmail(@PathVariable String emailId) {
         try {
-            emailService.starEmail(emailId, userEmail);
+            String authenticatedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+            emailService.starEmail(emailId, authenticatedUserEmail);
             Map<String, String> response = new HashMap<>();
             response.put("message", "Email starred successfully.");
             return ResponseEntity.ok(response);
         } catch (AccessDeniedException e) {
             Map<String, String> error = new HashMap<>();
             error.put("error", e.getMessage());
-            return ResponseEntity.status(403).body(error); // 403 Forbidden
+            return ResponseEntity.status(403).body(error);
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
             error.put("error", e.getMessage());
-            return ResponseEntity.status(500).body(error); // 500 Internal Server Error
+            return ResponseEntity.status(500).body(error);
         }
     }
-    
+
     @DeleteMapping("/{emailId}")
-    public ResponseEntity<?> deleteEmail(
-            @PathVariable String emailId,
-            @RequestParam String userEmail) {
+    public ResponseEntity<?> deleteEmail(@PathVariable String emailId) {
         try {
-            emailService.deleteEmail(emailId, userEmail);
+            String authenticatedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+            emailService.deleteEmail(emailId, authenticatedUserEmail);
             Map<String, String> response = new HashMap<>();
             response.put("message", "Email deleted successfully.");
             return ResponseEntity.ok(response);
         } catch (AccessDeniedException e) {
             Map<String, String> error = new HashMap<>();
             error.put("error", e.getMessage());
-            return ResponseEntity.status(403).body(error); // 403 Forbidden
+            return ResponseEntity.status(403).body(error);
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
             error.put("error", e.getMessage());
-            return ResponseEntity.status(500).body(error); // 500 Internal Server Error
+            return ResponseEntity.status(500).body(error);
         }
     }
-    
+
     @GetMapping("/filter")
-    public ResponseEntity<?> filterEmails(
-            @RequestParam String criteria,
-            @RequestParam String userEmail) {
+    public ResponseEntity<?> filterEmails(@RequestParam String criteria) {
         try {
-            List<Email> filteredEmails = emailService.filterEmailsByContent(criteria, userEmail);
+            String authenticatedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+            List<Email> filteredEmails = emailService.filterEmailsByContent(criteria, authenticatedUserEmail);
             return ResponseEntity.ok(filteredEmails);
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
@@ -90,11 +86,9 @@ public class EmailController {
             return ResponseEntity.badRequest().body(error);
         }
     }
-    
+
     @PostMapping("/analyze")
-    public ResponseEntity<?> analyzeEmail(
-            @RequestBody Email email,
-            @RequestParam String type) {
+    public ResponseEntity<?> analyzeEmail(@RequestBody Email email, @RequestParam String type) {
         try {
             String result = aiRecommendationService.analyzeEmail(email, type);
             Map<String, String> response = new HashMap<>();
