@@ -59,7 +59,10 @@ function EmailList() {
   };
 
   const handleEmailClick = (id) => {
-    navigate(`/mail/${id}`);
+    const selectedEmail = emails.find(email => email.id === id);
+    navigate(`/mail/${id}`, {
+      state: { email: selectedEmail }
+    });
   };
 
   const handleDelete = (e, id) => {

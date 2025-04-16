@@ -1,9 +1,8 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import HomeNavbar from "../Home/HomeNavbar";
 import Features from "./features";
 import MailContent from "./MailContent";
-import emailData from "../../data/emails.json";
 import AIButtons from "./AIButtons";
 
 function MailPage() {
@@ -11,15 +10,17 @@ function MailPage() {
   const navigate = useNavigate();
   const [selectedMail, setSelectedMail] = useState(null);
   const summaryRef = useRef(null);
+  const { state } = useLocation();
 
   useEffect(() => {
-    const mail = emailData.find((email) => email.id === parseInt(id));
-    if (!mail) {
-      navigate("/");
+    if(state?.email) {
+      setSelectedMail(state.email);
+    }
+    else {
+      // navigate("/");
       return;
     }
-    setSelectedMail(mail);
-  }, [id, navigate]);
+  }, [id, state]);
 
   const handleSummaryShow = () => {
     setTimeout(() => {
@@ -36,7 +37,7 @@ function MailPage() {
       </div>
 
       <div ref={summaryRef}>
-        <AIButtons onSummaryShow={handleSummaryShow} />
+        <AIButtons onSummaryShow={handleSummaryShow} mail={selectedMail}/>
       </div>
     </>
   );

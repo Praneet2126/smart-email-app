@@ -19,6 +19,7 @@ public class Email {
     private String body;
     private LocalDateTime timestamp;
     private boolean starred;
+    private String sender;
     
     @DBRef
     private List<Attachment> attachments = new ArrayList<>();

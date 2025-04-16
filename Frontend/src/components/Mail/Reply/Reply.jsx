@@ -1,6 +1,8 @@
 import "./Reply.css";
 
-function Reply({ onClose }) {
+function Reply({ onClose, result, mail }) {
+  const email = localStorage.getItem("email");
+
   return (
     <div className="reply-container">
       <button className="close-btn flex justify-center items-center" onClick={onClose}>
@@ -11,23 +13,17 @@ function Reply({ onClose }) {
         <div className="email-header">
           <p>
             <strong>To:</strong>{" "}
-            <span className="recipient">recipient@email.com</span>
+            <span className="recipient">{mail.sender}</span>
           </p>
           <p>
             <strong>Subject:</strong>{" "}
-            <span className="subject">Re: Your Recent Email</span>
+            <span className="subject">Replying to {mail.subject}</span>
           </p>
         </div>
         <div className="email-body">
-          <p>Dear [Name],</p>
+        <p>Dear {mail.sender.split("@")[0].charAt(0).toUpperCase() + mail.sender.split("@")[0].slice(1)},</p>
           <p>
-            Thank you for your email. I appreciate you taking the time to reach
-            out.
-          </p>
-          <p>
-            I have reviewed your request and would like to confirm that I will
-            be able to assist you with this matter. I will work on this and get
-            back to you with more details soon.
+            {result}
           </p>
           <p>
             Please let me know if you need any additional information from my
@@ -36,7 +32,7 @@ function Reply({ onClose }) {
           <p>
             Best regards,
             <br />
-            [Your name]
+            {email.split("@")[0].charAt(0).toUpperCase() + email.split("@")[0].slice(1)}
           </p>
         </div>
         <div className="reply-actions">

@@ -32,6 +32,7 @@ public class EmailService {
 
         // Set timestamp
         email.setTimestamp(LocalDateTime.now());
+        email.setSender(sender.getEmail());
 
         // Save email
         Email savedEmail = emailRepository.save(email);
@@ -99,7 +100,7 @@ public class EmailService {
     public List<Email> getInbox(String userEmail) {
         User user = userRepository.findByEmail(userEmail)
             .orElseThrow(() -> new RuntimeException("User not found"));
-
+        
         return user.getInbox().getEmails();
     }
 }
