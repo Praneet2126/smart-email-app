@@ -17,11 +17,49 @@ function LoginForm() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    navigate('/home');
-  };
+    console.log("Attempting login...");
+
+    try {
+      const response = await fetch(
+        "http://localhost:8080/email-app/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      console.log("Server Response:", data);
+
+      if (response.ok) {
+        // Store credentials in localStorage
+        localStorage.setItem('email', formData.email);
+        localStorage.setItem('password', formData.password);
+        
+        // Verify storage
+        console.log('Stored credentials:', {
+          email: localStorage.getItem('email'),
+          password: localStorage.getItem('password')
+        });
+
+        console.log("Login successful:", data.message);
+        navigate("/home");
+      } else {
+        console.error("Login failed:", data.error);
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+};
 
   return (
     <div className="login-container">

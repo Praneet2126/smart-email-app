@@ -17,10 +17,29 @@ function ContactForm() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    navigate("/home");
+    try {
+      const response = await fetch(
+        "http://localhost:8080/public/health-check",
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.text();
+      console.log("Server response:", data);
+      navigate("/home");
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (

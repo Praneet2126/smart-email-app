@@ -1,33 +1,63 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import AnimatedButton from './AnimatedButton';
-import './SignupForm.css';
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import AnimatedButton from "./AnimatedButton";
+import "./SignupForm.css";
 
 function SignupForm() {
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: ''
+    username: "",
+    email: "",
+    password: "",
   });
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSignupClick = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    navigate('/login');
+    console.log("Attempting signup...");
+
+    try {
+      const response = await fetch(
+        "http://localhost:8080/email-app/api/auth/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.username, // mapping username to name as expected by backend
+            email: formData.email,
+            password: formData.password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      console.log("Server Response:", data);
+
+      if (response.ok) {
+        console.log("Signup successful:", data.message);
+        navigate("/login"); // Redirect to login page after successful signup
+      } else {
+        console.error("Signup failed:", data.error);
+        // Here you might want to show an error message to the user
+      }
+    } catch (error) {
+      console.error("Signup failed:", error);
+    }
   };
 
   return (
     <div className="signup-container">
       <h2>Create Account</h2>
-      <form onSubmit={handleSubmit} className="signup-form">
+      <form onSubmit={handleSignupClick} className="signup-form">
         <div className="form-group">
           <input
             type="text"
