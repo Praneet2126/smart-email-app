@@ -5,11 +5,11 @@
 .category-tabs {
   display: flex;
   justify-content: space-evenly;
-  gap: 15rem;
+  gap: 8rem;
 }
 
 .category-tab {
-  padding: 0.75rem 2rem;
+  padding: 0.80rem 3rem;
   background-color: #ff3b3b;
   border: none;
   border-radius: 25px;
@@ -21,7 +21,7 @@
   box-shadow: 0 4px 8px rgba(255, 59, 59, 0.2);
   transform-style: preserve-3d;
   perspective: 1000px;
-  width: 15rem;
+  width: 20rem;
 }
 
 .category-tab:hover {
