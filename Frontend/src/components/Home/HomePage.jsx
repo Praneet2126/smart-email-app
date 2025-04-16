@@ -1,13 +1,16 @@
 import React from "react";
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import HomeNavbar from "./HomeNavbar";
 import SearchBar from "./searchbar";
 import Category from "./category";
-import EmailList from "./EmailList"
+import EmailList from "./emaillist";
 import emailData from "../../data/emails.json";
+import './homepage.css';
 
 function HomePage() {
-  const [selectedCategory, setSelectedCategory] = useState("Primary");
+  const navigate = useNavigate();
+  const [selectedCategory, setSelectedCategory] = useState("Personal");
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredEmails, setFilteredEmails] = useState(emailData);
   const [allEmails, setAllEmails] = useState(emailData);
@@ -37,7 +40,15 @@ function HomePage() {
   return (
     <>
       <HomeNavbar />
-      <SearchBar onSearch={handleSearch} value={searchQuery} />
+      <div className="search-compose-container">
+        <SearchBar onSearch={handleSearch} value={searchQuery} />
+        <button 
+          className="compose-btn"
+          onClick={() => navigate('/compose-mail')}
+        >
+          Compose
+        </button>
+      </div>
       <Category 
         selectedCategory={selectedCategory} 
         onCategoryChange={handleCategoryChange} 
