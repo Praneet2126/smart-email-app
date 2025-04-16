@@ -87,6 +87,21 @@ public class EmailController {
         }
     }
 
+    @GetMapping("/get-inbox")
+    public ResponseEntity<?> getInbox() {
+        try {
+            String authenticatedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+            List<Email> inboxEmails = emailService.getInbox(authenticatedUserEmail);
+            Map<String, List<Email>> response = new HashMap<>();
+            response.put("emails", inboxEmails);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(404).body(error);
+        }
+    }
+
     @PostMapping("/analyze")
     public ResponseEntity<?> analyzeEmail(@RequestBody Email email, @RequestParam String type) {
         try {
