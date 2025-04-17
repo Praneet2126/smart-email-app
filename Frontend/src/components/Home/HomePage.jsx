@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import HomeNavbar from "./HomeNavbar";
 import SearchBar from "./searchbar";
 import Category from "./category";
-import EmailList from "./emaillist";
+import EmailList from "./EmailList";
 import emailData from "../../data/emails.json";
 import './homepage.css';
 

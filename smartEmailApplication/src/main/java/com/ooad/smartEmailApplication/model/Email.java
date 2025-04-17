@@ -20,6 +20,7 @@ public class Email {
     private LocalDateTime timestamp;
     private boolean starred;
     private String sender;
+    private String category;
     
     @DBRef
     private List<Attachment> attachments = new ArrayList<>();

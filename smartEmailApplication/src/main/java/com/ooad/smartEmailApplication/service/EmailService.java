@@ -1,5 +1,7 @@
 package com.ooad.smartEmailApplication.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ooad.smartEmailApplication.model.Email;
 import com.ooad.smartEmailApplication.model.Inbox;
 import com.ooad.smartEmailApplication.model.User;
@@ -7,10 +9,18 @@ import com.ooad.smartEmailApplication.repository.EmailRepository;
 import com.ooad.smartEmailApplication.repository.InboxRepository;
 import com.ooad.smartEmailApplication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EmailService {
@@ -23,6 +33,9 @@ public class EmailService {
     @Autowired
     private InboxRepository inboxRepository;
 
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final String url = "http://localhost:8080/email-app/api/emails/analyze?type=categorize";
+
     public Email sendEmail(String from, String to, Email email) {
         User sender = userRepository.findByEmail(from)
                 .orElseThrow(() -> new RuntimeException("Sender not found"));
@@ -33,6 +46,9 @@ public class EmailService {
         // Set timestamp
         email.setTimestamp(LocalDateTime.now());
         email.setSender(sender.getEmail());
+
+        String category = analyseEmailCategory(email);
+        email.setCategory(category);
 
         // Save email
         Email savedEmail = emailRepository.save(email);
@@ -47,6 +63,43 @@ public class EmailService {
 
         return savedEmail;
     }
+
+    private String analyseEmailCategory(Email email) {
+        try {
+            // Create headers and set Basic Auth credentials
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setBasicAuth("david@gmail.com", "david"); 
+
+            // Prepare payload
+            Map<String, String> requestPayload = new HashMap<>();
+            requestPayload.put("subject", email.getSubject());
+            requestPayload.put("body", email.getBody());
+
+            // Wrap it in HttpEntity
+            HttpEntity<Map<String, String>> entity = new HttpEntity<>(requestPayload, headers);
+
+            // Send POST request
+            ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                entity,
+                String.class
+            );
+
+            // Parse the JSON response
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(response.getBody());
+            String result = jsonNode.get("result").asText();
+
+            return result.toLowerCase();
+
+        } catch (Exception e) {
+            System.out.println("Error occurred while fetching category: " + e);
+            return "did not work";
+        }
+    }
+
 
     public void starEmail(String emailId, String userEmail) {
         User user = userRepository.findByEmail(userEmail)
