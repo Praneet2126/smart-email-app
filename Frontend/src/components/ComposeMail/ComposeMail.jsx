@@ -19,10 +19,44 @@ function ComposeMail() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Mail data:', mailData);
-    navigate('/home');
+    try {
+      // Get credentials from localStorage
+      const email = localStorage.getItem("email");
+      const password = localStorage.getItem("password");
+      const credentials = btoa(`${email}:${password}`);
+  
+      const response = await fetch(
+        `http://localhost:8080/email-app/api/emails/send?from=${email}&to=${mailData.to}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Basic ${credentials}`,
+          },
+          body: JSON.stringify({
+            subject: mailData.subject,
+            body: mailData.body,
+          }),
+        }
+      );
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to send email");
+      }
+  
+      const data = await response.json();
+      console.log("Email sent successfully:", data);
+      alert("Email sent successfully");
+      navigate("/home");
+    } catch (error) {
+      console.error("Error sending email:", error);
+      // You might want to add error handling UI feedback here
+      alert(error.message);
+    }
   };
 
   return (

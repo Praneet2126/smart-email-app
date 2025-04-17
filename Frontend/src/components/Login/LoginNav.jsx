@@ -1,4 +1,4 @@
-import "./LoginNav.css"
+import "./LoginNav.css";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -7,12 +7,14 @@ function LoginNav() {
     <>
       <div className="container">
         <div className="brand">
-          <div className="logo">
-            <img src="/Images/Logo.png" alt="logo" />
-          </div>
-          <div>
-            <h2 className="logo-title">NEUROMAIL</h2>
-          </div>
+          <Link to="/" className="flex items-center">
+            <div className="logo">
+              <img src="/Images/logo.svg" alt="logo" />
+            </div>
+            <div>
+              <h2 className="logo-title">NEUROMAIL</h2>
+            </div>
+          </Link>
         </div>
         <div className="nav-section">
           <div>

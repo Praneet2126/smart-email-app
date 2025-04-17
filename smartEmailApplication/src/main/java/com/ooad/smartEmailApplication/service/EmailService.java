@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class EmailService {
@@ -150,10 +151,20 @@ public class EmailService {
         return user.getInbox().filterEmails(criteria);
     }
 
-    public List<Email> getInbox(String userEmail) {
+    public List<Email> getInbox(String userEmail, String category) {
         User user = userRepository.findByEmail(userEmail)
             .orElseThrow(() -> new RuntimeException("User not found"));
         
-        return user.getInbox().getEmails();
+        List<Email> allEmails = user.getInbox().getEmails();
+        
+        // If category is null or "all", return all emails
+        if (category == null || category.equalsIgnoreCase("all")) {
+            return allEmails;
+        }
+        
+        // Filter emails by category
+        return allEmails.stream()
+            .filter(email -> category.equalsIgnoreCase(email.getCategory()))
+            .collect(Collectors.toList());
     }
 }

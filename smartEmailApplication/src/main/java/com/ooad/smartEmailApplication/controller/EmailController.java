@@ -88,10 +88,10 @@ public class EmailController {
     }
 
     @GetMapping("/get-inbox")
-    public ResponseEntity<?> getInbox() {
+    public ResponseEntity<?> getInbox(@RequestParam String category) {
         try {
             String authenticatedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-            List<Email> inboxEmails = emailService.getInbox(authenticatedUserEmail);
+            List<Email> inboxEmails = emailService.getInbox(authenticatedUserEmail, category);
             Map<String, List<Email>> response = new HashMap<>();
             response.put("emails", inboxEmails);
             return ResponseEntity.ok(response);

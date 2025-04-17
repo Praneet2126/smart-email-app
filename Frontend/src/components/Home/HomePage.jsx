@@ -1,12 +1,11 @@
 import React from "react";
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import HomeNavbar from "./HomeNavbar";
 import SearchBar from "./searchbar";
-import Category from "./category";
 import EmailList from "./EmailList";
 import emailData from "../../data/emails.json";
-import './homepage.css';
+import "./homepage.css";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -16,10 +15,12 @@ function HomePage() {
   const [allEmails, setAllEmails] = useState(emailData);
 
   useEffect(() => {
-    const filtered = allEmails.filter(email => {
+    const filtered = allEmails.filter((email) => {
       const matchesCategory = email.category === selectedCategory;
-      const matchesSearch = searchQuery.toLowerCase().trim() === "" ? true :
-        email.name.toLowerCase().includes(searchQuery.toLowerCase().trim());
+      const matchesSearch =
+        searchQuery.toLowerCase().trim() === ""
+          ? true
+          : email.name.toLowerCase().includes(searchQuery.toLowerCase().trim());
       return matchesCategory && matchesSearch;
     });
     setFilteredEmails(filtered);
@@ -33,31 +34,19 @@ function HomePage() {
     setSearchQuery(query);
   };
 
-  const handleDelete = (id) => {
-    setAllEmails(prevEmails => prevEmails.filter(email => email.id !== id));
-  };
-
   return (
     <>
       <HomeNavbar />
       <div className="search-compose-container">
         <SearchBar onSearch={handleSearch} value={searchQuery} />
-        <button 
+        <button
           className="compose-btn"
-          onClick={() => navigate('/compose-mail')}
+          onClick={() => navigate("/compose-mail")}
         >
           Compose
         </button>
       </div>
-      <Category 
-        selectedCategory={selectedCategory} 
-        onCategoryChange={handleCategoryChange} 
-      />
-      <EmailList 
-        selectedCategory={selectedCategory}
-        emails={filteredEmails}
-        onDelete={handleDelete}
-      />
+      <EmailList />
     </>
   );
 }

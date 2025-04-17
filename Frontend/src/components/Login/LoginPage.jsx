@@ -1,11 +1,11 @@
 import React from "react";
-import SignupNav from "../Signup/SignupNav.jsx"
 import Hero from "./Hero";
+import LoginNav from "./LoginNav.jsx";
 
 function LoginPage(){
     return(
         <>
-            <SignupNav/>
+            <LoginNav/>
             <Hero/>
         </>
     )

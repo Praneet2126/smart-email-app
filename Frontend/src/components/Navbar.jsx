@@ -20,7 +20,7 @@ function Navbar() {
         <div className="brand">
           <Link to="/" className="flex items-center">
             <div className="logo">
-              <img src="/Images/Logo.png" alt="logo" />
+              <img src="/Images/logo.svg" alt="logo" />
             </div>
             <div>
               <h2 className="logo-title">NEUROMAIL</h2>

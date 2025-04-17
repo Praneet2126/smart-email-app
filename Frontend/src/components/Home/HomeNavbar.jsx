@@ -1,8 +1,16 @@
 import React from "react";
 import "./HomeNavbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function HomeNavbar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
+    navigate("/login");
+  }
+
   return (
     <>
       <div className="container">
@@ -38,6 +46,15 @@ function HomeNavbar() {
             </Link>
           </div>
         </div>
+
+        <button
+            className="logoutBtn"
+            onClick={() => {
+              handleLogout();
+            }}
+          >
+            Logout
+          </button>
 
         <div className="profile">
           <i className="fa-solid fa-user user-icon"></i>

@@ -5,26 +5,26 @@ function Category({ selectedCategory, onCategoryChange }) {
     <div className="category-container">
       <div className="category-tabs">
         <button 
-          className={`category-tab ${selectedCategory === "Personal" ? "active" : ""}`}
-          onClick={() => onCategoryChange("Personal")}
+          className={`category-tab ${selectedCategory === "personal" ? "active" : ""}`}
+          onClick={() => onCategoryChange("personal")}
         >
           Personal
         </button>
         <button 
-          className={`category-tab ${selectedCategory === "Promotional" ? "active" : ""}`}
-          onClick={() => onCategoryChange("Promotional")}
+          className={`category-tab ${selectedCategory === "promotions" ? "active" : ""}`}
+          onClick={() => onCategoryChange("promotions")}
         >
           Promotions
         </button>
         <button 
-          className={`category-tab ${selectedCategory === "Spam" ? "active" : ""}`}
-          onClick={() => onCategoryChange("Spam")}
+          className={`category-tab ${selectedCategory === "spam" ? "active" : ""}`}
+          onClick={() => onCategoryChange("spam")}
         >
           Spam
         </button>
         <button 
-          className={`category-tab ${selectedCategory === "Work" ? "active" : ""}`}
-          onClick={() => onCategoryChange("Work")}
+          className={`category-tab ${selectedCategory === "work" ? "active" : ""}`}
+          onClick={() => onCategoryChange("work")}
         >
           Work
         </button>

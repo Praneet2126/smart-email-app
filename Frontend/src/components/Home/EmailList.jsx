@@ -3,25 +3,29 @@ import { FaGithub, FaStar, FaTrash } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Category from "./category"; 
 
 function EmailList() {
   const [emails, setEmails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("personal");
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchEmails();
-  }, []);
+    fetchEmailsByCategory(selectedCategory);
+  }, [selectedCategory]);
 
-  const fetchEmails = async () => {
+  const fetchEmailsByCategory = async (category) => {
     try {
+      setLoading(true);
       const email = localStorage.getItem("email");
       const password = localStorage.getItem("password");
       const credentials = btoa(`${email}:${password}`);
 
       const response = await fetch(
-        "http://localhost:8080/email-app/api/emails/get-inbox",
+        `http://localhost:8080/email-app/api/emails/get-inbox?category=${category}`,
         {
           method: "GET",
           headers: {
@@ -41,10 +45,8 @@ function EmailList() {
       }
 
       const data = await response.json();
-      console.log("Raw data from server:", data);
-
-      // Ensure we're setting an array to the emails state
       const emailArray = Array.isArray(data) ? data : data.emails || [];
+      console.log(emailArray);
       setEmails(emailArray);
       setLoading(false);
     } catch (error) {
@@ -58,6 +60,10 @@ function EmailList() {
     }
   };
 
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+  };
+
   const handleEmailClick = (id) => {
     const selectedEmail = emails.find(email => email.id === id);
     navigate(`/mail/${id}`, {
@@ -65,9 +71,10 @@ function EmailList() {
     });
   };
 
-  const handleDelete = (e, id) => {
+  const handleDelete = async (e, id) => {
     e.stopPropagation();
-    onDelete(id);
+    // You can add delete API call logic here if needed
+    setEmails(prevEmails => prevEmails.filter(email => email.id !== id));
   };
 
   return (
@@ -77,6 +84,11 @@ function EmailList() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      <Category 
+        selectedCategory={selectedCategory} 
+        onCategoryChange={handleCategoryChange} 
+      />
+
       {loading && <div className="loading">Loading emails...</div>}
       {error && <div className="error">{error}</div>}
       {!loading && !error && (
@@ -109,10 +121,7 @@ function EmailList() {
                 layout
               >
                 <div className="email-left">
-                  <motion.div
-                    className="sender-avatar"
-                    whileHover={{ scale: 1.1 }}
-                  >
+                  <motion.div className="sender-avatar" whileHover={{ scale: 1.1 }}>
                     <FaGithub className="avatar-icon" />
                   </motion.div>
                   <motion.div whileHover={{ scale: 1.2, color: "#ffd700" }}>
