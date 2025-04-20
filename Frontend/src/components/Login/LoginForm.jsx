@@ -38,7 +38,7 @@ function LoginForm() {
       );
 
       const data = await response.json();
-      console.log("Server Response:", data);
+      // console.log("Server Response:", data);
 
       if (response.ok) {
         // Store credentials in localStorage
@@ -54,7 +54,7 @@ function LoginForm() {
         console.log("Login successful:", data.message);
         navigate("/home");
       } else {
-        console.error("Login failed:", data.error);
+        console.log("Login failed:", data.error);
       }
     } catch (error) {
       console.error("Login failed:", error);

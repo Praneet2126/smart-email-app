@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import HomeNavbar from "./HomeNavbar";
-import SearchBar from "./searchbar";
+import SearchBar from "./SearchBar";
 import EmailList from "./EmailList";
 import emailData from "../../data/emails.json";
 import "./homepage.css";
