@@ -1,7 +1,7 @@
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import HomeNavbar from "../Home/HomeNavbar";
-import Features from "./features";
+import Features from "./Features";
 import MailContent from "./MailContent";
 import AIButtons from "./AIButtons";
 
