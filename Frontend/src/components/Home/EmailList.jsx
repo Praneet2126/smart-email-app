@@ -3,7 +3,7 @@ import { FaGithub, FaStar, FaTrash } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Category from "./category"; 
+import Category from "./Category"; 
 
 function EmailList() {
   const [emails, setEmails] = useState([]);
