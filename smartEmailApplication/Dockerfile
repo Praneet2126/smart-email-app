@@ -2,7 +2,6 @@
 FROM eclipse-temurin:21-jdk AS builder
 WORKDIR /app
 COPY . .
-RUN chmod +x mvn
 RUN mvn clean package -DskipTests
 
 # Step 2: Run the app
