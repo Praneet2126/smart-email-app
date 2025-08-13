@@ -6,7 +6,7 @@ import MailPage from "./components/Mail/MailPage";
 import SignUp from "./components/Signup/SignUp";
 import LoginPage from "./components/Login/LoginPage";
 import Contact from "./components/contact/Contact";
-import NotFound from "./components/NotFound/NotFound";
+import NotFound from "./components/NotFound/Notfound";
 import ComposeMail from "./components/ComposeMail/ComposeMail";
 
 function App() {
