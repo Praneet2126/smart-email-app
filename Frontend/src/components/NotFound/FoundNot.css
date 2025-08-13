@@ -13,7 +13,7 @@
   width: 100%;
   height: auto;
   margin-bottom: 2rem;
-} 
+}
 
 @media (max-width: 1200px) {
   .not-found-image {
@@ -99,7 +99,8 @@
 }
 
 @keyframes bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) scale(1);
   }
   50% {
@@ -120,7 +121,7 @@
 }
 
 .back-home-btn {
-  background: linear-gradient(45deg, #FF3B3B, #ff6b6b);
+  background: linear-gradient(45deg, #ff3b3b, #ff6b6b);
   color: white;
   padding: 1rem 2rem;
   border: none;

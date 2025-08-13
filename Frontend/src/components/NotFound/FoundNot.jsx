@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './NotFound.css';
+import './FoundNot.css';
 
 function NotFound() {
   const navigate = useNavigate();
@@ -21,6 +21,6 @@ function NotFound() {
       </button>
     </div>
   );
-} 
+}
 
 export default NotFound;
