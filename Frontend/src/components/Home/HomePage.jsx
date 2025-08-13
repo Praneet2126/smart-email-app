@@ -5,7 +5,7 @@ import HomeNavbar from "./HomeNavbar";
 import SearchBar from "./SearchBar";
 import EmailList from "./EmailList";
 import emailData from "../../data/emails.json";
-import "./HomePage.css"
+import "./homepage.css"
 
 function HomePage() {
   const navigate = useNavigate();
